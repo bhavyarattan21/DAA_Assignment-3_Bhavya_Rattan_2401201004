@@ -52,8 +52,8 @@ notebook = {
                 "import pandas as pd\n",
                 "import matplotlib.pyplot as plt\n",
                 "\n",
-                "# Ensure algorithms package is in python path\n",
-                "sys.path.insert(0, os.path.abspath('.'))\n",
+                "# Ensure project root is in python path\n",
+                "sys.path.insert(0, os.path.abspath('..'))\n",
                 "print('Environment configured successfully!')\n",
                 "print('Python libraries (numpy, pandas, matplotlib) loaded.')"
             ]
@@ -213,7 +213,8 @@ notebook = {
             "metadata": {},
             "outputs": [],
             "source": [
-                "df_bench = pd.read_csv('benchmark_results.csv')\n",
+                "csv_file = '../data_csv/benchmark_results.csv' if os.path.exists('../data_csv/benchmark_results.csv') else 'data_csv/benchmark_results.csv'\n",
+                "df_bench = pd.read_csv(csv_file)\n",
                 "display(df_bench)\n",
                 "\n",
                 "# Summary Table\n",
@@ -231,7 +232,7 @@ notebook = {
             "metadata": {},
             "source": [
                 "## Question 6: Visualizations & Performance Charts\n",
-                "Displaying the high-resolution generated charts from the `images/` directory."
+                "Displaying the high-resolution generated charts from the `graphes/` directory."
             ]
         },
         {
@@ -241,20 +242,21 @@ notebook = {
             "outputs": [],
             "source": [
                 "from IPython.display import Image, display\n",
+                "graphes_dir = '../graphes' if os.path.exists('../graphes') else 'graphes'\n",
                 "\n",
                 "print('1. Knapsack Resource Allocation:')\n",
-                "display(Image('images/knapsack_allocation.png'))\n",
+                "display(Image(os.path.join(graphes_dir, 'knapsack_allocation.png')))\n",
                 "\n",
                 "print('2. Activity Scheduling Timeline:')\n",
-                "display(Image('images/activity_timeline.png'))\n",
+                "display(Image(os.path.join(graphes_dir, 'activity_timeline.png')))\n",
                 "\n",
                 "print('3. Huffman Coding Compression & Tree:')\n",
-                "display(Image('images/huffman_compression.png'))\n",
-                "display(Image('images/huffman_tree.png'))\n",
+                "display(Image(os.path.join(graphes_dir, 'huffman_compression.png')))\n",
+                "display(Image(os.path.join(graphes_dir, 'huffman_tree.png')))\n",
                 "\n",
                 "print('4. Runtime & Memory Performance Scaling:')\n",
-                "display(Image('images/performance_comparison.png'))\n",
-                "display(Image('images/memory_usage_comparison.png'))"
+                "display(Image(os.path.join(graphes_dir, 'performance_comparison.png')))\n",
+                "display(Image(os.path.join(graphes_dir, 'memory_usage_comparison.png')))"
             ]
         },
         {
@@ -293,7 +295,9 @@ notebook = {
     "nbformat_minor": 2
 }
 
-with open("project_notebook.ipynb", "w", encoding="utf-8") as f:
+import os
+target_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "project_notebook.ipynb")
+with open(target_file, "w", encoding="utf-8") as f:
     json.dump(notebook, f, indent=2)
 
-print("[OK] project_notebook.ipynb created successfully!")
+print(f"[OK] {target_file} created successfully!")

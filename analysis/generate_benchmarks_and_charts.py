@@ -16,6 +16,11 @@ if sys.platform == 'win32':
         sys.stdout.reconfigure(encoding='utf-8', errors='replace')
     except Exception:
         pass
+# Project root resolution (must be added before importing algorithms)
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
 import random
 import string
 import pandas as pd
@@ -32,8 +37,11 @@ from algorithms.huffman_coding import huffman_encode, build_huffman_tree, Node
 random.seed(42)
 np.random.seed(42)
 
-# Ensure output directory exists
-os.makedirs("images", exist_ok=True)
+# Ensure output directories exist
+GRAPHES_DIR = os.path.join(PROJECT_ROOT, "graphes")
+DATA_DIR = os.path.join(PROJECT_ROOT, "data_csv")
+os.makedirs(GRAPHES_DIR, exist_ok=True)
+os.makedirs(DATA_DIR, exist_ok=True)
 
 # Styling configuration for professional charts
 plt.style.use('seaborn-v0_8-whitegrid' if 'seaborn-v0_8-whitegrid' in plt.style.available else 'default')
@@ -89,7 +97,7 @@ def generate_knapsack_chart():
     plt.suptitle("Resource Allocation Module — Fractional Knapsack Analysis\nStudent: Bhavya Rattan (2401201004)",
                  fontsize=12, fontweight='bold', y=1.02)
     plt.tight_layout()
-    chart_path = os.path.join("images", "knapsack_allocation.png")
+    chart_path = os.path.join(GRAPHES_DIR, "knapsack_allocation.png")
     plt.savefig(chart_path, dpi=200, bbox_inches='tight')
     plt.close()
     print(f"[OK] Saved: {chart_path}")
@@ -153,7 +161,7 @@ def generate_activity_timeline():
 
     plt.suptitle("Bhavya Rattan (Roll No: 2401201004) | DAA Lab 3", fontsize=10, color='#64748b', y=0.99)
     plt.tight_layout()
-    chart_path = os.path.join("images", "activity_timeline.png")
+    chart_path = os.path.join(GRAPHES_DIR, "activity_timeline.png")
     plt.savefig(chart_path, dpi=200, bbox_inches='tight')
     plt.close()
     print(f"[OK] Saved: {chart_path}")
@@ -209,7 +217,7 @@ def generate_huffman_chart():
 
     plt.suptitle("Bhavya Rattan (Roll No: 2401201004) | DAA Lab 3", fontsize=9, color='#64748b', y=1.02)
     plt.tight_layout()
-    chart_path = os.path.join("images", "huffman_compression.png")
+    chart_path = os.path.join(GRAPHES_DIR, "huffman_compression.png")
     plt.savefig(chart_path, dpi=200, bbox_inches='tight')
     plt.close()
     print(f"[OK] Saved: {chart_path}")
@@ -294,7 +302,7 @@ def generate_huffman_tree_diagram():
     ax.legend(handles=legend_elements, loc='lower right', frameon=True)
 
     plt.tight_layout()
-    chart_path = os.path.join("images", "huffman_tree.png")
+    chart_path = os.path.join(GRAPHES_DIR, "huffman_tree.png")
     plt.savefig(chart_path, dpi=200, bbox_inches='tight')
     plt.close()
     print(f"[OK] Saved: {chart_path}")
@@ -370,7 +378,7 @@ def run_benchmarks():
         })
 
     df = pd.DataFrame(results)
-    csv_path = "benchmark_results.csv"
+    csv_path = os.path.join(DATA_DIR, "benchmark_results.csv")
     df.to_csv(csv_path, index=False)
     print(f"[OK] Benchmark results saved to {csv_path}")
 
@@ -405,7 +413,7 @@ def generate_performance_and_memory_charts(df):
 
     plt.suptitle("Bhavya Rattan (Roll No: 2401201004) | DAA Lab 3 Benchmarks", fontsize=9, color='#64748b', y=1.01)
     plt.tight_layout()
-    chart_path = os.path.join("images", "performance_comparison.png")
+    chart_path = os.path.join(GRAPHES_DIR, "performance_comparison.png")
     plt.savefig(chart_path, dpi=200, bbox_inches='tight')
     plt.close()
     print(f"[OK] Saved: {chart_path}")
@@ -428,7 +436,7 @@ def generate_performance_and_memory_charts(df):
 
     plt.suptitle("Bhavya Rattan (Roll No: 2401201004) | DAA Lab 3 Benchmarks", fontsize=9, color='#64748b', y=1.01)
     plt.tight_layout()
-    mem_chart_path = os.path.join("images", "memory_usage_comparison.png")
+    mem_chart_path = os.path.join(GRAPHES_DIR, "memory_usage_comparison.png")
     plt.savefig(mem_chart_path, dpi=200, bbox_inches='tight')
     plt.close()
     print(f"[OK] Saved: {mem_chart_path}")

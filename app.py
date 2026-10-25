@@ -230,33 +230,33 @@ def menu_complexity_comparison():
     print(f"{'Huffman Coding':<22} {'O(n log n)':<18} {'O(n)':<18} {'Min-Heap Tree Merge'}")
     print("=" * 78)
 
-    csv_path = "benchmark_results.csv"
+    csv_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data_csv", "benchmark_results.csv")
     if os.path.exists(csv_path):
         import pandas as pd
         df = pd.read_csv(csv_path)
-        print("\nEmpirical Benchmark Results (Sample from benchmark_results.csv):")
+        print("\nEmpirical Benchmark Results (Sample from data_csv/benchmark_results.csv):")
         print(df.to_string(index=False))
     else:
-        print("\n[i] Run the benchmark generator (Option 5) to produce benchmark_results.csv.")
+        print("\n[i] Run the benchmark generator (Option 5) to produce data_csv/benchmark_results.csv.")
 
 
 def menu_generate_visualizations():
     print("\n[*] Invoking visualization suite...")
     try:
-        import generate_benchmarks_and_charts as gbc
+        from analysis import generate_benchmarks_and_charts as gbc
         gbc.generate_knapsack_chart()
         gbc.generate_activity_timeline()
         gbc.generate_huffman_chart()
         gbc.generate_huffman_tree_diagram()
         df = gbc.run_benchmarks()
         gbc.generate_performance_and_memory_charts(df)
-        print("\n[SUCCESS] All 6 visualization figures generated in 'images/' directory!")
-        print("1. images/knapsack_allocation.png")
-        print("2. images/activity_timeline.png")
-        print("3. images/huffman_compression.png")
-        print("4. images/huffman_tree.png")
-        print("5. images/performance_comparison.png")
-        print("6. images/memory_usage_comparison.png")
+        print("\n[SUCCESS] All 6 visualization figures generated in 'graphes/' directory!")
+        print("1. graphes/knapsack_allocation.png")
+        print("2. graphes/activity_timeline.png")
+        print("3. graphes/huffman_compression.png")
+        print("4. graphes/huffman_tree.png")
+        print("5. graphes/performance_comparison.png")
+        print("6. graphes/memory_usage_comparison.png")
     except Exception as e:
         print(f"[!] Error generating charts: {e}")
 

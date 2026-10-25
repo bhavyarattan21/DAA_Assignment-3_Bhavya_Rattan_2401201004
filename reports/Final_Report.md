@@ -113,7 +113,7 @@ Because no codeword is a prefix of another (prefix-free condition), the compress
 | **Activity Selection** | Task Scheduling | $\mathbf{O(n \log n)}$ | $\mathbf{O(n)}$ | Sorting activities by finish time ($f_i$) |
 | **Huffman Coding** | Data Compression | $\mathbf{O(n \log n)}$ | $\mathbf{O(n)}$ | $n-1$ min-heap extractions & insertions |
 
-### 4.2 Empirical Benchmarking Results (`benchmark_results.csv`)
+### 4.2 Empirical Benchmarking Results (`../data_csv/benchmark_results.csv`)
 The algorithms were executed across growing problem sizes ($n = 10$ to $n = 10,000$). Execution times and peak memory consumption were recorded using Python's high-resolution `time.perf_counter()` and `tracemalloc` profilers:
 
 | Input Size ($n$) | Knapsack Time (ms) | Knapsack Mem (KB) | Activity Time (ms) | Activity Mem (KB) | Huffman Time (ms) | Huffman Mem (KB) |
@@ -129,23 +129,23 @@ The algorithms were executed across growing problem sizes ($n = 10$ to $n = 10,0
 | **10,000** | 332.03 ms | 1,923.63 KB | 213.48 ms | 2,261.45 KB | 25.95 ms | 151.36 KB |
 
 ### 4.3 Analysis of Empirical Curves:
-* **Time Scalability:** As plotted in `images/performance_comparison.png`, the runtime curve perfectly mirrors the theoretical $c \cdot n \log_2 n$ curve. At $n = 10,000$, total execution time for all modules combined remains under **0.58 seconds**, demonstrating production-grade scalability.
-* **Memory Footprint:** As plotted in `images/memory_usage_comparison.png`, peak memory scales strictly linearly ($O(n)$), requiring under **2.3 MB** even at 10,000 elements.
+* **Time Scalability:** As plotted in `../graphes/performance_comparison.png`, the runtime curve perfectly mirrors the theoretical $c \cdot n \log_2 n$ curve. At $n = 10,000$, total execution time for all modules combined remains under **0.58 seconds**, demonstrating production-grade scalability.
+* **Memory Footprint:** As plotted in `../graphes/memory_usage_comparison.png`, peak memory scales strictly linearly ($O(n)$), requiring under **2.3 MB** even at 10,000 elements.
 
 ---
 
 ## 5. GENERATED VISUALIZATIONS OVERVIEW (QUESTION 6)
 
-The system automatically generates 6 high-resolution charts saved in the `images/` directory:
+The system automatically generates 6 high-resolution charts saved in the `../graphes/` directory:
 
-1. **`images/knapsack_allocation.png`**: Dual-subplot graphic showing:
+1. **`../graphes/knapsack_allocation.png`**: Dual-subplot graphic showing:
    - Bar chart of allocation percentages ($100\%$ for Gold, Platinum, Silver, and $33.3\%$ for Bronze).
    - Donut chart displaying the proportional weight saturation of the knapsack ($50/50\text{ kg}$) yielding a maximum profit of **$280.00**.
-2. **`images/activity_timeline.png`**: Gantt-style schedule displaying all 8 candidate activities, highlighting the 3 mutually compatible selected tasks (**A1 [1→4]**, **A4 [5→7]**, **A8 [8→11]**) in emerald green, while graying out overlapping conflicts.
-3. **`images/huffman_compression.png`**: Bar chart comparing character frequency versus assigned bit lengths. Frequently occurring characters (such as `'a'` with frequency 5) receive compact 1-bit codes, while rare characters receive 3-bit codes.
-4. **`images/huffman_tree.png`**: Hierarchical binary tree diagram visualizing root frequency 11, internal decision nodes, left (`0`) and right (`1`) branches, and colored leaf nodes.
-5. **`images/performance_comparison.png`**: Runtime growth curve comparing empirical execution against the theoretical $O(n \log n)$ benchmark.
-6. **`images/memory_usage_comparison.png`**: Peak memory allocation graph showing strict linear $O(n)$ behavior.
+2. **`../graphes/activity_timeline.png`**: Gantt-style schedule displaying all 8 candidate activities, highlighting the 3 mutually compatible selected tasks (**A1 [1→4]**, **A4 [5→7]**, **A8 [8→11]**) in emerald green, while graying out overlapping conflicts.
+3. **`../graphes/huffman_compression.png`**: Bar chart comparing character frequency versus assigned bit lengths. Frequently occurring characters (such as `'a'` with frequency 5) receive compact 1-bit codes, while rare characters receive 3-bit codes.
+4. **`../graphes/huffman_tree.png`**: Hierarchical binary tree diagram visualizing root frequency 11, internal decision nodes, left (`0`) and right (`1`) branches, and colored leaf nodes.
+5. **`../graphes/performance_comparison.png`**: Runtime growth curve comparing empirical execution against the theoretical $O(n \log n)$ benchmark.
+6. **`../graphes/memory_usage_comparison.png`**: Peak memory allocation graph showing strict linear $O(n)$ behavior.
 
 ---
 

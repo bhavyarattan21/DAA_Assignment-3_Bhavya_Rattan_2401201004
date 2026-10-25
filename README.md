@@ -24,26 +24,32 @@ The system addresses real-world optimization problems across three critical comp
 ## 📁 Repository Structure
 ```text
 daa_lab3/
-├── algorithms/
+├── algorithms/                    # Algorithm implementations
 │   ├── __init__.py                # Package initialization and exports
 │   ├── fractional_knapsack.py     # Module 1: Fractional Knapsack implementation
 │   ├── activity_selection.py      # Module 2: Activity Selection implementation
 │   └── huffman_coding.py          # Module 3: Huffman Coding & Decoding implementation
-├── images/
+├── analysis/                      # Benchmarking & analysis scripts
+│   ├── __init__.py                # Analysis package exports
+│   └── generate_benchmarks_and_charts.py # Automated benchmarking & visualization engine
+├── graphes/                       # Generated charts and diagrams
 │   ├── knapsack_allocation.png    # Resource allocation bar & donut charts
 │   ├── activity_timeline.png      # Gantt-style activity scheduling timeline
 │   ├── huffman_compression.png    # Character frequencies vs bit-lengths
 │   ├── huffman_tree.png           # Visual hierarchical binary Huffman tree
 │   ├── performance_comparison.png # Empirical runtime vs input size (O(n log n))
 │   └── memory_usage_comparison.png# Peak memory usage vs input size (O(n))
+├── reports/                       # Academic and visualization reports
+│   ├── Final_Report.md            # Comprehensive technical lab report (Question 7)
+│   ├── Lab3_Report_Bhavya_Rattan_2401201004.html # Styled printable HTML report
+│   ├── Visualizations_and_Charts_Bhavya_Rattan_2401201004.html # Charts presentation page
+│   └── Benchmarking_Engine_Bhavya_Rattan_2401201004.html # Benchmarking interactive report
+├── notebooks/                     # Interactive Jupyter notebooks
+│   ├── project_notebook.ipynb     # Full Jupyter Notebook covering Questions 1-7
+│   └── generate_notebook.py       # Notebook builder script
+├── data_csv/                      # Benchmark datasets
+│   └── benchmark_results.csv      # Empirical execution times & memory benchmarks
 ├── app.py                         # Interactive menu-driven CLI application
-├── benchmark_results.csv          # Empirical execution times & memory benchmarks
-├── generate_benchmarks_and_charts.py # Automated benchmarking & visualization script
-├── project_notebook.ipynb         # Full Jupyter Notebook covering Questions 1-7
-├── Final_Report.md                # Comprehensive technical lab report (Question 7)
-├── Lab3_Report_Bhavya_Rattan_2401201004.html # Styled printable HTML report
-├── Visualizations_and_Charts_Bhavya_Rattan_2401201004.html # Charts presentation page
-├── Benchmarking_Engine_Bhavya_Rattan_2401201004.html # Benchmarking interactive report
 ├── requirements.txt               # Project dependencies
 ├── .gitignore                     # Git ignore file
 └── README.md                      # Project documentation
@@ -88,13 +94,13 @@ python app.py
 ### B. Run Automated Benchmark Suite & Generate Visualizations
 Re-run all timing and memory profiling across $n = 10$ to $n = 10,000$ and regenerate all charts:
 ```bash
-python generate_benchmarks_and_charts.py
+python analysis/generate_benchmarks_and_charts.py
 ```
 
 ### C. Launch Jupyter Notebook
 Open the interactive step-by-step notebook:
 ```bash
-jupyter notebook project_notebook.ipynb
+jupyter notebook notebooks/project_notebook.ipynb
 ```
 
 ---
@@ -112,20 +118,20 @@ jupyter notebook project_notebook.ipynb
 ## 📈 Visualizations & Results Gallery (Question 6)
 
 ### 1. Fractional Knapsack: Resource Allocation
-![Knapsack Allocation](images/knapsack_allocation.png)
+![Knapsack Allocation](graphes/knapsack_allocation.png)
 
 ### 2. Activity Selection: Scheduled Timeline
-![Activity Timeline](images/activity_timeline.png)
+![Activity Timeline](graphes/activity_timeline.png)
 
 ### 3. Huffman Coding: Compression Statistics & Tree
 | Huffman Frequency & Bits | Huffman Binary Tree Architecture |
 | :---: | :---: |
-| ![Huffman Compression](images/huffman_compression.png) | ![Huffman Tree](images/huffman_tree.png) |
+| ![Huffman Compression](graphes/huffman_compression.png) | ![Huffman Tree](graphes/huffman_tree.png) |
 
 ### 4. Empirical Performance & Memory Scaling
 | Execution Time Growth ($O(n \log n)$) | Peak Memory Footprint ($O(n)$) |
 | :---: | :---: |
-| ![Performance](images/performance_comparison.png) | ![Memory](images/memory_usage_comparison.png) |
+| ![Performance](graphes/performance_comparison.png) | ![Memory](graphes/memory_usage_comparison.png) |
 
 ---
 
