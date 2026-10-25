@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizations & Charts | Bhavya Rattan (2401201004) | DAA Lab 3</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --border: rgba(255, 255, 255, 0.08);
+      --primary: #6366f1;
+      --primary-light: #818cf8;
+      --accent-cyan: #06b6d4;
+      --accent-green: #10b981;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2.5rem 1.5rem;
+    }
+    .container { max-width: 1080px; margin: 0 auto; }
+    
+    .header-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 16px;
+      padding: 2rem 2.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .title-area h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .title-area p { color: var(--text-muted); font-size: 0.95rem; margin-top: 0.25rem; }
+    .student-badge {
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 0.75rem 1.25rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
+    }
+    .student-badge strong { color: var(--accent-cyan); }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover, .tab-btn.active {
+      color: #ffffff;
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+
+    .chart-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .chart-card:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateY(-2px);
+    }
+    .chart-card-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chart-card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .chart-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-green);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .chart-img-wrap {
+      background: #000000;
+      padding: 1rem;
+      text-align: center;
+    }
+    .chart-img-wrap img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+    }
+    .chart-body {
+      padding: 1.25rem 1.5rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .chart-keypoints {
+      margin-top: 0.75rem;
+      padding-left: 1.25rem;
+    }
+    .chart-keypoints li { margin-bottom: 0.3rem; }
+
+    @media print {
+      body { background: #fff !important; color: #000 !important; padding: 0; }
+      .header-card, .chart-card { background: #fff !important; border: 1px solid #ccc !important; color: #000 !important; break-inside: avoid; }
+      .chart-card-title, .title-area h1 { color: #000 !important; }
+      .nav-tabs, button { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <header class="header-card">
+    <div class="title-area">
+      <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary-light); font-weight: 700;">
+        K.R. Mangalam University | DAA Lab 3 Visualizations
+      </div>
+      <h1>Visualizations & Charts Gallery</h1>
+      <p>Graphical Results for Fractional Knapsack, Activity Selection & Huffman Coding</p>
+    </div>
+    <div class="student-badge">
+      <div>Student: <strong>Bhavya Rattan</strong></div>
+      <div>Roll No: <strong>2401201004</strong></div>
+      <div>Faculty: <strong>Dr. Aarti</strong> | CO3</div>
+    </div>
+  </header>
+
+  <!-- Navigation / Links -->
+  <div class="nav-tabs">
+    <button class="tab-btn active">All 6 Visualizations</button>
+    <a href="Lab3_Report_Bhavya_Rattan_2401201004.html" class="tab-btn" style="text-decoration:none;">📄 Open Full Lab Report</a>
+    <a href="Benchmarking_Engine_Bhavya_Rattan_2401201004.html" class="tab-btn" style="text-decoration:none;">⚡ Open Benchmarking Engine</a>
+    <button class="tab-btn" onclick="window.print()" style="margin-left:auto; background:var(--primary); color:#fff;">🖨️ Print / Save PDF</button>
+  </div>
+
+  <!-- Gallery Grid -->
+  <div class="gallery-grid">
+
+    <!-- Chart 1: Knapsack -->
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <div class="chart-card-title">1. Resource Allocation (Fractional Knapsack)</div>
+        <span class="chart-tag">Allocation %</span>
+      </div>
+      <div class="chart-img-wrap">
+        <img src="images/knapsack_allocation.png" alt="Knapsack Allocation Chart">
+      </div>
+      <div class="chart-body">
+        <p><strong>Analysis:</strong> Displays percentage of each item packed into the knapsack (Gold 100%, Silver 100%, Bronze 66.7%).</p>
+        <ul class="chart-keypoints">
+          <li>Capacity = 50.0 kg | Consumed = 50.0 kg (100% saturation)</li>
+          <li>Maximum Achievable Profit = $240.00</li>
+          <li>Greedy Choice: Highest value-to-weight ratio items taken first.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Chart 2: Activity Selection -->
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <div class="chart-card-title">2. Task Scheduling (Activity Selection)</div>
+        <span class="chart-tag">Gantt Timeline</span>
+      </div>
+      <div class="chart-img-wrap">
+        <img src="images/activity_timeline.png" alt="Activity Selection Timeline">
+      </div>
+      <div class="chart-body">
+        <p><strong>Analysis:</strong> Gantt-style timeline depicting candidate tasks and the mutually compatible non-overlapping selection.</p>
+        <ul class="chart-keypoints">
+          <li>Selected Tasks: A1 [1→4], A4 [5→7], A8 [8→11] (Total: 3 tasks)</li>
+          <li>Conflicting tasks grayed out with hatch patterns.</li>
+          <li>Greedy Choice: Earliest finish time first leaves max remaining time.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Chart 3: Huffman Compression -->
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <div class="chart-card-title">3. Huffman Coding Compression Statistics</div>
+        <span class="chart-tag">73.86% Savings</span>
+      </div>
+      <div class="chart-img-wrap">
+        <img src="images/huffman_compression.png" alt="Huffman Compression">
+      </div>
+      <div class="chart-body">
+        <p><strong>Analysis:</strong> Frequency of characters in "abracadabra" versus the number of bits allocated by Huffman coding.</p>
+        <ul class="chart-keypoints">
+          <li>Most frequent char ('a', freq=5) receives minimal 1-bit code ('0').</li>
+          <li>Original ASCII: 88 bits (11 bytes) -> Compressed: 23 bits (2.88 bytes).</li>
+          <li>Lossless compression verified with complete decoding check.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Chart 4: Huffman Tree -->
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <div class="chart-card-title">4. Huffman Binary Prefix Tree Structure</div>
+        <span class="chart-tag">Prefix-Free</span>
+      </div>
+      <div class="chart-img-wrap">
+        <img src="images/huffman_tree.png" alt="Huffman Tree Diagram">
+      </div>
+      <div class="chart-body">
+        <p><strong>Analysis:</strong> Full binary tree built by merging the two lowest-frequency nodes repeatedly using a min-heap.</p>
+        <ul class="chart-keypoints">
+          <li>Leaf nodes (green) store characters and frequencies.</li>
+          <li>Internal nodes (purple) represent merged subtree sums.</li>
+          <li>Left branch = '0', Right branch = '1'.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Chart 5: Runtime Performance -->
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <div class="chart-card-title">5. Empirical Execution Time Scaling</div>
+        <span class="chart-tag">O(n log n)</span>
+      </div>
+      <div class="chart-img-wrap">
+        <img src="images/performance_comparison.png" alt="Performance Comparison">
+      </div>
+      <div class="chart-body">
+        <p><strong>Analysis:</strong> Real measured execution time across input sizes from $n=10$ to $n=10,000$.</p>
+        <ul class="chart-keypoints">
+          <li>Matches the theoretical $c \cdot n \log n$ reference curve.</li>
+          <li>At $n = 10,000$, execution completes in under 0.35 seconds.</li>
+          <li>Proves production scalability of greedy heuristics.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Chart 6: Memory Footprint -->
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <div class="chart-card-title">6. Peak Memory Footprint Scaling</div>
+        <span class="chart-tag">O(n) Linear</span>
+      </div>
+      <div class="chart-img-wrap">
+        <img src="images/memory_usage_comparison.png" alt="Memory Usage Comparison">
+      </div>
+      <div class="chart-body">
+        <p><strong>Analysis:</strong> Memory measured via Python's `tracemalloc` profiler across growing input sets.</p>
+        <ul class="chart-keypoints">
+          <li>Demonstrates strict $O(n)$ linear auxiliary memory scaling.</li>
+          <li>Peak memory at $n = 10,000$ remains below 2.3 MB.</li>
+          <li>Ideal for memory-constrained embedded systems and IoT devices.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <footer style="text-align: center; border-top: 1px solid var(--border); padding-top: 1.5rem; color: var(--text-muted); font-size: 0.85rem;">
+    Visualizations & Charts Report | Bhavya Rattan (2401201004) | Faculty: Dr. Aarti | K.R. Mangalam University
+  </footer>
+
+</div>
+
+</body>
+</html>
